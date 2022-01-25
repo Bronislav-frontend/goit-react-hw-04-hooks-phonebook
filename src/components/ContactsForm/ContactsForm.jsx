@@ -2,34 +2,21 @@ import { useState } from "react";
 import PropTypes from 'prop-types';
 import s from './ContactsForm.module.css'
 
-export default function ContactsForm ({onSubmit}) {
+export default function ContactsForm ( {onSubmit} ) {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
-    const handleChange = evt => {
-        const {name, value} = evt.target
-
-        switch(name) {
-          case 'name' : 
-            setName(value);
-            break;
-            
-          case 'number' :
-            setNumber(value);
-            break;
-
-          default :
-            return;
-        }
+    const handleChange = ({ target: { name, value } }) => {
+        name === 'name' ? setName(value) : setNumber(value)
     }
 
-    const  handleSubmit = evt => {
-        evt.preventDefault();
+    const  handleSubmit = e => {
+        e.preventDefault();
         onSubmit(name, number);
-        reset();
+        resetState();
     };
 
-    const reset = () => {
+    const resetState = () => {
         setName('');
         setNumber('');
     };
